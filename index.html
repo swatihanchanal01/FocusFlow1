@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#100d1d" />
+  <title>FocusFlow — Study Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="FocusFlow home">
+        <span class="brand-mark">✦</span><span>FocusFlow</span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-link" href="#timer-section"><span>◷</span> Focus timer</a>
+      <a class="nav-link" href="#history-section"><span>▤</span> Study history</a>
+      <div class="sidebar-note">
+        <span class="note-icon">✧</span>
+        <p>Small sessions.<br><strong>Big progress.</strong></p>
+      </div>
+      <div class="sidebar-bottom">YOUR PERSONAL<br>STUDY SPACE</div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="today-label">YOUR STUDY SPACE</p>
+          <h1>Good to see you <span class="wave">✦</span></h1>
+          <p class="subheading">Make today count, one focused session at a time.</p>
+        </div>
+        <div class="date-chip"><span class="live-dot"></span><span id="date-text">Today</span></div>
+      </header>
+
+      <section class="stats-grid" aria-label="Study statistics">
+        <article class="stat-card highlight-card">
+          <div class="stat-top"><span class="stat-icon">◷</span><span class="stat-caption">STUDY TIME</span></div>
+          <div class="stat-value" id="today-study">0<span>h</span> 0<span>m</span> 0<span>s</span></div>
+          <div class="stat-foot">Today · actual focused time</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon">☾</span><span class="stat-caption">NON-STUDY TIME</span></div>
+          <div class="stat-value" id="today-break">0<span>h</span> 0<span>m</span></div>
+          <div class="stat-foot">Tracked time not marked as study (includes college)</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon">▣</span><span class="stat-caption">SESSIONS</span></div>
+          <div class="stat-value" id="today-sessions">0</div>
+          <div class="stat-foot">Completed study sessions</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-icon">✧</span><span class="stat-caption">DAY TRACKED</span></div>
+          <div class="stat-value" id="day-tracked">Not started</div>
+          <div class="stat-foot">From Start Day to End Day</div>
+        </article>
+      </section>
+
+      <section class="main-grid">
+        <article class="panel day-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">DAILY CONTROL</p><h2>Your day, your pace</h2></div>
+            <span class="status-pill" id="day-status"><i></i> Not started</span>
+          </div>
+          <p class="panel-description">Start your day once. Check in whenever you study and check out when you take a break.</p>
+          <div class="day-buttons">
+            <button class="btn btn-primary" id="start-day">▶ <span>Start Day</span></button>
+            <button class="btn btn-outline" id="end-day" disabled>■ <span>End Day</span></button>
+          </div>
+          <div class="divider"></div>
+          <div class="study-control">
+            <div class="control-copy">
+              <span class="control-icon">✦</span>
+              <div><strong id="study-state-title">Ready when you are</strong><small id="study-state-subtitle">Check in when you begin studying.</small></div>
+            </div>
+            <div class="study-buttons">
+              <button class="btn btn-study" id="check-in" disabled>Check In</button>
+              <button class="btn btn-stop" id="check-out" disabled>Check Out</button>
+            </div>
+          </div>
+          <div class="live-session" id="live-session">
+            <span class="live-dot"></span><span id="live-label">No active study session</span>
+            <strong id="live-clock">00:00:00</strong>
+          </div>
+          <p class="helper-text">Tip: College hours are simply part of your day — they won't be counted as study time.</p>
+        </article>
+
+        <article class="panel timer-panel" id="timer-section">
+          <div class="panel-heading">
+            <div><p class="eyebrow">STAY IN THE ZONE</p><h2>Focus timer</h2></div>
+            <span class="timer-spark">✧</span>
+          </div>
+          <div class="timer-tabs">
+            <button class="timer-tab active" data-mode="pomodoro">Pomodoro</button>
+            <button class="timer-tab" data-mode="custom">Custom</button>
+          </div>
+          <div class="timer-face">
+            <div class="timer-ring"><div class="timer-inner"><strong id="timer-display">25:00</strong><span id="timer-caption">FOCUS SESSION</span></div></div>
+          </div>
+          <div class="custom-row" id="custom-row" hidden>
+            <label for="custom-minutes">Minutes</label>
+            <input type="number" id="custom-minutes" min="1" max="180" value="45" />
+            <button class="small-button" id="set-custom">Set</button>
+          </div>
+          <div class="timer-actions">
+            <button class="btn btn-primary timer-start" id="timer-start">Start timer</button>
+            <button class="btn btn-outline timer-reset" id="timer-reset">Reset</button>
+          </div>
+          <p class="timer-hint" id="timer-hint">25 min focus · 5 min break. Timer runs independently of study check-in.</p>
+        </article>
+      </section>
+
+      <section class="panel period-panel">
+        <div class="panel-heading period-heading">
+          <div><p class="eyebrow">YOUR CONSISTENCY</p><h2>Study overview</h2></div>
+          <div class="period-tabs" role="tablist" aria-label="Statistics period">
+            <button class="period-tab active" data-period="day">Day</button>
+            <button class="period-tab" data-period="week">Week</button>
+            <button class="period-tab" data-period="month">Month</button>
+            <button class="period-tab" data-period="year">Year</button>
+          </div>
+        </div>
+        <div class="period-summary">
+          <div><span class="summary-label" id="period-label">TODAY'S TOTAL STUDY TIME</span><strong id="period-total">0h 0m 0s</strong></div>
+          <span class="summary-caption" id="period-sessions">0 study sessions</span>
+        </div>
+        <div class="chart-wrap"><div class="chart" id="study-chart" aria-label="Study time chart"></div></div>
+        <div class="chart-legend"><span><i></i> Study hours</span><span id="chart-note">Your daily study time</span></div>
+      </section>
+
+      <section class="panel history-panel" id="history-section">
+        <div class="panel-heading">
+          <div><p class="eyebrow">KEEP YOUR MOMENTUM</p><h2>Recent study history</h2></div>
+          <span class="history-count" id="history-count">0 days recorded</span>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="empty-state"><span>✧</span><strong>Your progress will show up here</strong><small>Start a day and complete your first study session.</small></div>
+        </div>
+      </section>
+      <footer>Made for your goals <span>✦</span> Your records stay in this browser.</footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
